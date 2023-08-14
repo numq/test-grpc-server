@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package test;
+
+option go_package = ".";
+
+enum TestEnum {
+  FIRST = 0;
+  SECOND = 1;
+  THIRD = 2;
+}
+
+message TestInnerMessage {
+  double double_value = 1;
+  float float_value = 2;
+  int64 int_value = 3;
+  bool bool_value = 4;
+  string string_value = 5;
+  bytes bytes_value = 6;
+}
+
+message TestMessage {
+  TestEnum enum_value = 1;
+  TestInnerMessage message_value = 2;
+}
+
+message UnaryCallRequest{
+  double double_value = 1;
+  float float_value = 2;
+  int64 int_value = 3;
+  bool bool_value = 4;
+  string string_value = 5;
+  bytes bytes_value = 6;
+}
+
+message UnaryCallResponse {
+  TestMessage message = 1;
+}
+
+message ClientStreamingRequest{
+  int64 value = 1;
+}
+
+message ClientStreamingResponse {
+  int64 sum = 1;
+}
+
+message ServerStreamingRequest{
+  string word = 1;
+}
+
+message ServerStreamingResponse {
+  string letter = 1;
+}
+
+message BidiStreamingRequest{
+  int64 value = 1;
+}
+
+message BidiStreamingResponse {
+  int64 accumulator = 1;
+}
+
+service TestService{
+  rpc UnaryCall(UnaryCallRequest) returns (UnaryCallResponse);
+  rpc ClientStreaming(stream ClientStreamingRequest) returns (ClientStreamingResponse);
+  rpc ServerStreaming(ServerStreamingRequest) returns (stream ServerStreamingResponse);
+  rpc BidiStreaming(stream BidiStreamingRequest) returns (stream BidiStreamingResponse);
+}
