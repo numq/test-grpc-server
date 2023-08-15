@@ -105,3 +105,7 @@ func (s *Impl) BidiStreaming(server pb.TestService_BidiStreamingServer) error {
 
 	return nil
 }
+
+func (s *Impl) HealthCheck(_ context.Context, _ *pb.HealthCheckRequest) (*pb.HealthCheckResponse, error) {
+	return &pb.HealthCheckResponse{}, nil
+}
