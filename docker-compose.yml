@@ -1,0 +1,7 @@
+services:
+  application:
+    build: .
+    volumes:
+      - ./:/data
+    ports:
+      - '8080:8080'
